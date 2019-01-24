@@ -20,6 +20,24 @@ Let's begin with creating a database
 
 `use hobbies;`
 
+We create a user
+
+```
+db.createUser(
+   {
+     user: "admin",
+     pwd: "admin123",
+     roles: [{ role: "dbOwner", db: "hobbies" }]
+   }
+)
+```
+
+And to use authenticate with that user we use
+
+`db.auth("admin", "admin123");`
+
+You should get a 1 for Success or a 0 if it failed
+
 Now we can insert in that database the following entry
 
 ```
