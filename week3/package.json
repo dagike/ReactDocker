@@ -4,7 +4,10 @@
   "description": "Connect to MongoDB running in docker",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "micro-serve -p 3000 dist/",
+    "build": "babel lib --out-dir dist",
+    "prepublish": "npm run build"
   },
   "keywords": [
     "docker",
@@ -14,6 +17,23 @@
   "author": "DAGIKE",
   "license": "ISC",
   "dependencies": {
-    "mongodb": "^3.1.13"
+    "micro": "^9.1.0",
+    "micro-core": "0.3.0",
+    "mongodb": "^3.1.13",
+    "request-promise": "3.0.0"
+  },
+  "devDependencies": {
+    "babel-plugin-transform-es2015-modules-commonjs": "6.8.0",
+    "babel-plugin-transform-async-to-generator": "6.8.0",
+    "babel-cli": "6.8.0"
+  },
+  "files": [
+    "dist"
+  ],
+  "babel": {
+    "plugins": [
+      "transform-es2015-modules-commonjs",
+      "transform-async-to-generator"
+    ]
   }
 }
