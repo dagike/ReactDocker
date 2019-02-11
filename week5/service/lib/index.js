@@ -2,15 +2,7 @@ import request from "request-promise";
 import MongoClient from "mongodb";
 import micro, { json, send, sendError } from "micro";
 
-/*
-Note:
-The URL used to connect to mongo here expects to use the docker network to resolve
-what application to connect to. The connection will not be made unless this app is
-run in a docker container, built from the included dockerfile
-
-*/
-
-const DBName = "entertainment";
+const DBName = "hobbies";
 const url = `mongodb://10.0.75.1:27017/${DBName}`;
 
 async function connector() {
@@ -22,10 +14,10 @@ async function connector() {
   }
 }
 
-async function findActor(db, query) {
+async function findGame(db, query) {
   try {
     let r = await db
-      .collection("actors")
+      .collection("games")
       .find(query)
       .toArray();
     console.log(r);
@@ -34,65 +26,59 @@ async function findActor(db, query) {
     return err;
   }
 }
-async function updateActorByName(db, query) {
-  const { firstName, lastName } = query;
+async function updateGameByTitle(db, query) {
+  const { title } = query;
   try {
     return await db
-      .collection("actors")
-      .update({ firstName: firstName, lastName: lastName }, { $set: query })
+      .collection("games")
+      .update({ title }, { $set: query })
       .toArray();
   } catch (err) {
     return err;
   }
 }
-async function insertActor(db, query) {
-  console.log("inserting an actor");
+async function insertGame(db, query) {
+  console.log("inserting a game");
   try {
-    return await db.collection("actors").insert(query);
+    return await db.collection("games").insert(query);
   } catch (err) {
     return err;
   }
 }
-async function deleteActorByName(db, query) {
-  const { firstName, lastName } = query;
+async function deleteGameByTitle(db, query) {
+  const { title } = query;
   try {
-    return await db
-      .collection("actors")
-      .remove({ firstName: firstName, lastName: lastName });
+    return await db.collection("games").remove({ title });
   } catch (err) {
     return err;
   }
 }
-
-/**
- * Handler functions
- */
 
 async function getHandler(request) {
   const js = await json(request);
   console.log(js);
   const client = await connector();
   const db = client.db(DBName);
-  return await findActor(db, js);
+  return await findGame(db, js);
 }
 async function postHandler(request) {
   const js = await json(request);
   console.log(js);
   const client = await connector();
   const db = client.db(DBName);
-  return await insertActor(db, js);
+  return await insertGame(db, js);
 }
 async function putHandler(request) {
   const js = await json(request);
   const client = await connector();
   const db = client.db(DBName);
-  return await updateActorByName(db, js);
+  return await updateGameByTitle(db, js);
 }
 async function deleteHandler(request) {
   const js = await json(request);
   const client = await connector();
   const db = client.db(DBName);
-  return await deleteActorByName(db, js);
+  return await deleteGameByTitle(db, js);
 }
 
 export default async (request, response) => {

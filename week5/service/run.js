@@ -9,7 +9,7 @@ To test:
 npm run build
 npm start
 
-curl -X GET http://localhost:8080 -d '{"firstName":"John"}'
+curl -X GET http://localhost:8080 -d '{"title":"God of War"}'
 
 */
 serve(api).listen(8080, err => {
