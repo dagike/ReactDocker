@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 const bodyParser = require("body-parser");
 const MongoClient = require("mongodb").MongoClient;
 
@@ -6,8 +7,6 @@ const MongoClient = require("mongodb").MongoClient;
 
 const DBName = "games";
 const url = `mongodb://10.0.75.1/${DBName}`;
-
-//const url = `mongodb://admin:secret@${dbName}:27017`;
 
 const options = {
   useNewUrlParser: true,
@@ -17,6 +16,7 @@ const options = {
 const routes = require("./routes/routes.js");
 const port = process.env.PORT || 80;
 const app = express();
+app.use(cors());
 const http = require("http").Server(app);
 
 app.use(bodyParser.json());
@@ -31,9 +31,9 @@ MongoClient.connect(url, options, (err, database) => {
     console.log(`FATAL MONGODB CONNECTION ERROR: ${err}:${err.stack}`);
     process.exit(1);
   }
-  app.locals.db = database.db("leaflet");
+  app.locals.db = database.db("hobbies");
   http.listen(port, () => {
-    console.log("Listening on port " + port);
+    console.log("CORS Enabled Listening on port " + port);
     app.emit("APP_STARTED");
   });
 });

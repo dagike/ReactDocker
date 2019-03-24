@@ -1,6 +1,6 @@
 const express = require("express");
 
-const Document = require("../models/Games");
+const Document = require("../models/Game");
 const router = express.Router();
 
 router.get("/games/all", (req, res, next) => {
