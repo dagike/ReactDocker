@@ -1,0 +1,17 @@
+my-api:
+  build: ./api
+  depends_on:
+    - my-mongo
+  image: "dagike/games_api"
+  ports:
+    - "80:80"
+frontend:
+  build: ./client
+  depends_on:
+    - my-mongo
+    - my-api
+  links:
+    - my-api
+  image: "dagike/dagike_frontend"
+  ports:
+    - "3000:3000"

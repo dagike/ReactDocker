@@ -1,0 +1,7 @@
+version: "3"
+services:
+  my-mongo:
+    build: ./database
+    image: "dagike/games_db"
+    ports:
+      - "27017:27017"

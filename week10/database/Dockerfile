@@ -1,0 +1,9 @@
+FROM mongo
+
+ENV MONGO_INITDB_ROOT_USERNAME admin
+ENV MONGO_INITDB_ROOT_PASSWORD secret
+ENV MONGO_INITDB_DATABASE hobbies
+
+EXPOSE 27017
+
+ADD mongo-init.js /docker-entrypoint-initdb.d/
