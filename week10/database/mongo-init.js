@@ -29,4 +29,4 @@ const gameData = [
   }
 ];
 
-db.instructors.insertMany(gameData);
+db.games.insertMany(gameData);
