@@ -2,7 +2,7 @@ import request from "request-promise";
 import MongoClient from "mongodb";
 import micro, { json, send, sendError } from "micro";
 
-const DBName = "hobbies";
+const DBName = "games";
 const url = `mongodb://10.0.75.1:27017/${DBName}`;
 
 async function connector() {
