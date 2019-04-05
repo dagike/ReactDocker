@@ -1,0 +1,19 @@
+.gameCard {
+  display: flex;
+  flex-direction: column;
+  max-width: 300px;
+  margin-bottom: 2em;
+  background-color: #343a40;
+
+  &__image {
+    width: 240px;
+    height: 320px;
+  }
+
+  &__title {
+    display: flex;
+    justify-content: center;
+    color: white;
+    padding: 1.1em;
+  }
+}
