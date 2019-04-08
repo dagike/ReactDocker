@@ -10,7 +10,7 @@ We start a mongodb server container
 
 We create the following container to use with mongo in a terminal within the Dockerfile directory
 
-`docker build -t dagike/node-web-app`
+`docker build -t dagike/node-web-app .`
 
 We can check if the image was created
 

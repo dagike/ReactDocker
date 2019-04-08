@@ -1,5 +1,5 @@
 const MongoClient = require("mongodb").MongoClient;
-const DBName = "games";
+const DBName = "hobbies";
 
 const url = `mongodb://10.0.75.1/${DBName}`;
 
