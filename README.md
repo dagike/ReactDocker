@@ -16,6 +16,6 @@
 
 ## [Week 10](week10) - React with API
 
-## [Week 11](week11) - Running Database API and Front End with Docker Compose
+## [Week 11](week11) - Database API and Front End with Docker Compose
 
 ## [Week 12](week12) - React Routes
