@@ -1,25 +1,11 @@
-import request from 'request-promise';
-import MongoClient from 'mongodb';
-import micro,{
-  json,
-  send,
-  sendError
-} from 'micro';
+import request from "request-promise";
+import MongoClient from "mongodb";
+import micro, { json, send, sendError } from "micro";
 
-/*
-Note:
-This example assumes mongo running in a Docker container, from a standard docker mongo image.
-docker run --name my-mongo -it -p 27017:27017 mongo:3.4.18-jessie
-
-Use 'docker-machine env' to figure out the IP of your host network, and be sure to forward port 27017
-*/
-
-const DBName = 'entertainment';
-const url = `mongodb://10.0.75.1/${DBName}`;
+const DBName = "hobbies";
+const url = `mongodb://10.0.75.1:27017/${DBName}`;
 
 async function connector() {
-
-
   try {
     // Use connect method to connect to the Server
     return await await MongoClient.connect(url);
@@ -28,93 +14,93 @@ async function connector() {
   }
 }
 
-async function findActor(db, query){
-  try{
-    let r = await db.collection('actors').find(query).toArray();
+async function findGame(db, query) {
+  try {
+    let r = await db
+      .collection("games")
+      .find(query)
+      .toArray();
     console.log(r);
-    return(r);
-  } catch(err){
-    return(err);
+    return r;
+  } catch (err) {
+    return err;
   }
 }
-async function updateActorByName(db, query){
-  const {firstName, lastName} = query;
-  try{
-    return await db.collection('actors').update({firstName:firstName, lastName:lastName}, {$set: query}).toArray();
-  } catch(err){
-    return (err);
+async function updateGameByTitle(db, query) {
+  const { title } = query;
+  try {
+    return await db
+      .collection("games")
+      .update({ title }, { $set: query })
+      .toArray();
+  } catch (err) {
+    return err;
   }
 }
-async function insertActor(db, query){
-  console.log("inserting an actor");
-  try{
-    return await db.collection('actors').insert(query);
-  } catch(err) {
-    return(err)
+async function insertGame(db, query) {
+  console.log("inserting a game");
+  try {
+    return await db.collection("games").insert(query);
+  } catch (err) {
+    return err;
   }
 }
-async function deleteActorByName(db,query){
-  const {firstName, lastName} = query;
-  try{
-    
-    return await db.collection('actors').remove({firstName:firstName, lastName:lastName});
-  
-  }catch(err){
-    return(err);
+async function deleteGameByTitle(db, query) {
+  const { title } = query;
+  try {
+    return await db.collection("games").remove({ title });
+  } catch (err) {
+    return err;
   }
 }
 
-/**
- * Handler functions
- */
- 
-async function getHandler(request){
+async function getHandler(request) {
   const js = await json(request);
   console.log(js);
   const client = await connector();
   const db = client.db(DBName);
-  return await findActor(db, js);
+  return await findGame(db, js);
 }
-async function postHandler (request){
-  const js = await json(request)
+async function postHandler(request) {
+  const js = await json(request);
   console.log(js);
   const client = await connector();
   const db = client.db(DBName);
-  return await insertActor(db, js);
+  return await insertGame(db, js);
 }
-async function putHandler(request){
+async function putHandler(request) {
   const js = await json(request);
   const client = await connector();
   const db = client.db(DBName);
-  return await updateActorByName(db, js);
+  return await updateGameByTitle(db, js);
 }
-async function deleteHandler(request){
+async function deleteHandler(request) {
   const js = await json(request);
   const client = await connector();
   const db = client.db(DBName);
-  return await deleteActorByName(db, js);
+  return await deleteGameByTitle(db, js);
 }
 
-export default async(request, response)=>{
-  try{
-    switch(request.method){
-      case 'GET':
+export default async (request, response) => {
+  try {
+    switch (request.method) {
+      case "GET":
         console.log("a get call was made");
         return await getHandler(request);
-      case 'POST':
+      case "POST":
         console.log("a post call was made");
         return await postHandler(request);
-      case 'PUT':
+      case "PUT":
         console.log("a put call was made");
         return await putHandler(request);
-      case 'DELETE':
+      case "DELETE":
         console.log("a delete call was made");
         return await deleteHandler(request);
       default:
-        send(response, 405, 'Invalid');
+        send(response, 405, "Invalid");
         break;
     }
-  } catch (error){
+  } catch (error) {
     throw error;
   }
-}
+};

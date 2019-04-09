@@ -1,68 +1,35 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# React assignment
 
-## Available Scripts
+## ClockController
 
-In the project directory, you can run:
+All the logic of is used in this .js file we can get the current Time and Date
 
-### `npm start`
+We initialize state values of currentTime, currenDate and isRunning
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- currentTime with js we create an instance of the current Time
+  `new Date().toLocaleTimeString()`
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+- currentDate with js we create an instance of the current Date
+  `new Date().toLocaleDateString()`
 
-### `npm test`
+- isRunning is a boolean to specify if the tick is currently running in the interval
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+- changeIntervalTime() we set the interval if isRunning is true that means we need to stop the interval if it is false we need to clear it and we toggle the isRunning boolean
 
-### `npm run build`
+- tick() we set the state for currentTime and currentDate and we set run state to true meaning is currently running this is the function that is going to run in the interval
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
+- componenDidMount() after the component is render this method is called which means we can start the interval
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+- Inside this component we render Clock and DateComp components
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Clock
 
-### `npm run eject`
+- A functional component only showing the prop time and getting the button text and onClick callback
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Date
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+- A functional component only showing the prop date
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Bootstrap
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+- Using bootstrap we get a simple style for the button

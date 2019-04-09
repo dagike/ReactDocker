@@ -1,34 +1,42 @@
 import React, { Component } from "react";
 import Clock from "./Clock";
-
+import DateComp from "./DateComp";
 class ClockController extends Component {
+  state = {
+    currentTime: new Date().toLocaleTimeString(),
+    currentDate: new Date().toLocaleDateString(),
+    isRunning: true
+  };
+
   tick = () => {
     this.setState({
       currentTime: new Date().toLocaleTimeString(),
       currentDate: new Date().toLocaleDateString(),
-      run: true
+      isRunning: true
     });
   };
 
-  stopTime = () => {
-    this.state.run
+  changeIntervalTime = () => {
+    this.state.isRunning
       ? clearInterval(this.timerID)
       : (this.timerID = setInterval(this.tick, 1000));
-    this.setState({ run: !this.state.run });
+    this.setState({ isRunning: !this.state.isRunning });
   };
 
   componentDidMount() {
     this.timerID = setInterval(this.tick, 1000);
   }
 
-  state = { currentTime: new Date().toLocaleTimeString() };
   render() {
     return (
-      <Clock
-        time={this.state.currentTime}
-        action={this.stopTime}
-        date={this.state.currentDate}
-      />
+      <div>
+        <DateComp date={this.state.currentDate} />
+        <Clock
+          buttonTitle={this.state.isRunning ? "Stop Time" : "Start Time"}
+          time={this.state.currentTime}
+          action={this.changeIntervalTime}
+        />
+      </div>
     );
   }
 }
