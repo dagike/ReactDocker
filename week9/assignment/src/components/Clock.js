@@ -1,16 +1,12 @@
 import React from "react";
-import Date from "./Date";
 
-const Clock = props => {
+export default ({ time, action, buttonTitle }) => {
   return (
     <div>
-      <h1>The time is {props.time}</h1>
-      <Date date={props.date} />
-      <button className="btn btn-primary" onClick={props.action}>
-        Stop/Start Time
+      <h2>The time is {time}</h2>
+      <button className="btn btn-primary" onClick={action}>
+        {buttonTitle}
       </button>
     </div>
   );
 };
-
-export default Clock;
