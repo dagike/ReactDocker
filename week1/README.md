@@ -2,7 +2,7 @@
 
 # Isaac
 
-- Computer Engineering Bachelor's Degree in Mexico City.
+- Computer Engineering Bachelor's Degree.
 
 - Studied C, Java, C#, Javascript in University.
 
